@@ -23,6 +23,6 @@ Feature: Business Contact Form - Invalid Email Validation
     When the user clicks on Contact Sales
     And the user fills the contact form with the following details:
       | firstName | lastName | email                  |
-      | Srijita   | Baksi    | srijitacogniznat.com   | 
+      | Tejasri   | Sri Ramoju    | tejacogniznat.com   | 
     Then an email validation error message should be displayed
     And the error message should contain "valid email"

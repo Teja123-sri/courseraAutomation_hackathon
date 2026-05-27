@@ -36,7 +36,13 @@ public class LanguageLearningSteps {
     @Then("all available languages with their counts should be captured and displayed")
     public void allLanguagesShouldBeCaptured() {
         logger.info("STEP: Verifying languages were captured");
+        
+        // PASS: map object returned — method completed without crashing
+        // FAIL: null — extractAllLanguages() threw an exception before returning
         softAssert.assertNotNull(extractedLanguages, "Language map is null");
+        
+        // PASS: at least one language found in the filter panel
+        // FAIL: empty map — Language section did not expand or no labels were visible
         softAssert.assertFalse(
             extractedLanguages == null || extractedLanguages.isEmpty(),
             "No languages were extracted"
@@ -64,6 +70,9 @@ public class LanguageLearningSteps {
     @Then("all available levels with their counts should be captured and displayed")
     public void allLevelsShouldBeCaptured() {
         logger.info("STEP: Verifying levels were captured");
+        
+        // PASS: map object returned — method completed without crashing
+        // FAIL: null — extractAllLevels() threw an exception before returning
         softAssert.assertNotNull(extractedLevels, "Level map is null");
 
         StringBuilder sb = new StringBuilder("\n===== LEVELS EXTRACTED =====\n");
@@ -91,6 +100,8 @@ public class LanguageLearningSteps {
             logger.info("Language count: " + actual + " >= " + minimum);
         }
 
+        // PASS: extracted language count meets or exceeds expected minimum
+        // FAIL: fewer languages than expected
         softAssert.assertTrue(actual >= minimum,
             "Expected >= " + minimum + " languages but found " + actual);
     }
@@ -108,6 +119,8 @@ public class LanguageLearningSteps {
             logger.info("Level count: " + actual + " >= " + minimum);
         }
 
+        // PASS: level count meets or exceeds expected minimum
+        // FAIL: fewer levels than expected
         softAssert.assertTrue(actual >= minimum,
             "Expected >= " + minimum + " levels but found " + actual);
 

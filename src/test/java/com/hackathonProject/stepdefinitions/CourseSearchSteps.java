@@ -41,6 +41,9 @@ public class CourseSearchSteps {
     public void theSearchResultsPageShouldBeDisplayed() {
         logger.info("STEP: Verifying search results page");
         String url = com.hackathonProject.base.BaseClass.getDriver().getCurrentUrl();
+        
+        // PASS: URL contains "search" or "coursera" — browser is on the results page
+        // FAIL: URL does not match — may have stayed on home page or been redirected
         softAssert.assertTrue(
             url.contains("search") || url.contains("coursera"),
             "Expected search results URL but got: " + url
@@ -75,6 +78,8 @@ public class CourseSearchSteps {
             ExtentReportManager.logInfo("  " + c.toString());
         }
 
+        // PASS: at least one course extracted after filters were applied
+        // FAIL: empty list — filters may have returned no results or cards failed to load
         softAssert.assertFalse(
             extractedCourses.isEmpty(),
             "No courses were extracted from the search results!"
@@ -85,7 +90,13 @@ public class CourseSearchSteps {
     @When("the course data is saved to an Excel file")
     public void theCourseDataIsSavedToExcel() {
         logger.info("STEP: Saving course data to Excel");
+        
+        // PASS: extractedCourses is not null — extraction step ran without crashing
+        // FAIL: null means extraction step was skipped or threw an exception
         softAssert.assertNotNull(extractedCourses, "Courses list is null");
+        
+        // PASS: list has at least one entry to write
+        // FAIL: empty list — nothing to write; Excel would contain only headers
         softAssert.assertFalse(extractedCourses == null || extractedCourses.isEmpty(), "Courses list is empty");
 
         if (extractedCourses != null && !extractedCourses.isEmpty()) {
@@ -93,6 +104,9 @@ public class CourseSearchSteps {
             searchResultsPage.saveCourseDataToExcel(extractedCourses, outputPath);
 
             java.io.File excelFile = new java.io.File(outputPath);
+            
+            // PASS: Excel file exists at the configured path after write
+            // FAIL: file not created — possible write permission issue or wrong path
             softAssert.assertTrue(excelFile.exists(), "Excel file was not created at: " + outputPath);
 
             ExtentReportManager.logPass("Excel file saved at: " + outputPath);
@@ -103,6 +117,9 @@ public class CourseSearchSteps {
     @Then("the first course name should not be empty")
     public void theFirstCourseNameShouldNotBeEmpty() {
         logger.info("STEP: Asserting first course name is not empty");
+        
+        // PASS: list has entries — extraction succeeded
+        // FAIL: empty — filters produced no results or course cards were not found
         softAssert.assertFalse(
             extractedCourses == null || extractedCourses.isEmpty(),
             "Courses list is empty"
@@ -110,6 +127,9 @@ public class CourseSearchSteps {
 
         if (extractedCourses != null && !extractedCourses.isEmpty()) {
             String firstName = extractedCourses.get(0).name;
+            
+            // PASS: name was successfully parsed from the card text
+            // FAIL: blank — card text parser could not identify the course title
             softAssert.assertFalse(
                 firstName == null || firstName.trim().isEmpty(),
                 "First course name is empty!"

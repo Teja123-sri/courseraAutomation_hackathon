@@ -20,20 +20,12 @@ public class BaseClass {
     private static final Logger logger = LogManager.getLogger(BaseClass.class);
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    private static ThreadLocal<String> browserOverride = new ThreadLocal<>();
-
-    public static void setBrowserOverride(String browser) {
-        browserOverride.set(browser);
-        logger.info("Browser override set to: " + browser);
-    }
 
     public static String getCurrentBrowser() {
         // Check system property first (-Dbrowser=chrome from Jenkins)
         String sysProp = System.getProperty("browser");
         if (sysProp != null && !sysProp.isEmpty()) return sysProp;
 
-        String override = browserOverride.get();
-        if (override != null && !override.isEmpty()) return override;
         return ConfigReader.getProperty("browser");
     }
 
@@ -132,7 +124,6 @@ public class BaseClass {
                 logger.warn("Error quitting browser: " + e.getMessage());
             }
             driver.remove();
-            browserOverride.remove();
         }
     }
 }

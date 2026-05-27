@@ -35,14 +35,4 @@ public class JavaScriptUtil {
         js.executeScript("window.scrollBy(0, " + pixels + ");");
         logger.info("Scrolled by " + pixels + " pixels");
     }
-
-    public static void highlightElement(WebDriver driver, WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].style.border='3px solid red'", element);
-    }
-
-    public static String getTextViaJS(WebDriver driver, WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        return (String) js.executeScript("return arguments[0].innerText;", element);
-    }
 }

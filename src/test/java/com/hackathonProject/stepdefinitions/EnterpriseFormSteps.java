@@ -72,7 +72,12 @@ public class EnterpriseFormSteps {
         );
         ExtentReportManager.attachScreenshot(screenshotPath);
 
+        // PASS: error message object is not null — captureEmailErrorMessage() returned a value
+        // FAIL: null — email error element was not found in the DOM at all
         softAssert.assertNotNull(capturedErrorMessage, "Error message is null");
+        
+        // PASS: the captured text is not blank — a real validation message was shown
+        // FAIL: blank string — element was found but contained no text
         softAssert.assertFalse(
             capturedErrorMessage == null || capturedErrorMessage.trim().isEmpty(),
             "No error message was captured for invalid email"
@@ -83,6 +88,8 @@ public class EnterpriseFormSteps {
     public void theErrorMessageShouldContain(String expectedText) {
         logger.info("STEP: Asserting error message contains: " + expectedText);
 
+        // PASS: capturedErrorMessage was set in the previous step
+        // FAIL: null — previous step did not run or failed before setting the field
         softAssert.assertNotNull(capturedErrorMessage, "Error message is null");
 
         if (capturedErrorMessage != null) {
@@ -96,6 +103,8 @@ public class EnterpriseFormSteps {
                 logger.error("Assertion FAILED. Expected: " + expectedText + " | Actual: " + capturedErrorMessage);
             }
 
+         // PASS: error message contains the expected keyword
+         // FAIL: error shown but does not contain the expected text 
             softAssert.assertTrue(matches,
                 "Expected error to contain '" + expectedText + "' but got: " + capturedErrorMessage);
         }

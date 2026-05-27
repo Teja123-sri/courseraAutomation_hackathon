@@ -45,13 +45,6 @@ import org.testng.annotations.DataProvider;
 
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
-
-//	@BeforeClass
-//    @Parameters({"browser"})
-//    public void setUpBrowser(String browser) {
-//        BaseClass.setBrowserOverride(browser);
-//    }
-    
     @Override
     @DataProvider(parallel = true)
     public Object[][] scenarios() {

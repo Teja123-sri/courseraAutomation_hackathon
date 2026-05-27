@@ -8,7 +8,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.hackathonProject.pages.SearchResultsPage.CourseInfo;
 
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Cell;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -65,25 +64,4 @@ public class ExcelDataWriter {
         }
     }
 
-    public static String[][] readTestData(String filePath, String sheetName) {
-        logger.info("Reading test data from: " + filePath + " | Sheet: " + sheetName);
-        try (XSSFWorkbook wb = new XSSFWorkbook(new java.io.FileInputStream(filePath))) {
-            XSSFSheet sheet = wb.getSheet(sheetName);
-            int rows = sheet.getLastRowNum();
-            int cols = sheet.getRow(0).getLastCellNum();
-            String[][] data = new String[rows][cols];
-            for (int r = 1; r <= rows; r++) {
-                Row row = sheet.getRow(r);
-                if (row == null) continue;
-                for (int c = 0; c < cols; c++) {
-                    Cell cell = row.getCell(c);
-                    data[r - 1][c] = (cell != null) ? cell.toString() : "";
-                }
-            }
-            return data;
-        } catch (Exception e) {
-            logger.error("Excel read error: " + e.getMessage());
-            return new String[0][0];
-        }
-    }
 }

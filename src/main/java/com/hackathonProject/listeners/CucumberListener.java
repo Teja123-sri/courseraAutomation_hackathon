@@ -5,11 +5,6 @@ import io.cucumber.plugin.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-
 public class CucumberListener implements ConcurrentEventListener {
 
     private static final Logger logger = LogManager.getLogger(CucumberListener.class);
@@ -82,29 +77,5 @@ public class CucumberListener implements ConcurrentEventListener {
             logger.error("Could not flush Extent Reports: " + e.getMessage());
         }
 
-        // Archive Cucumber reports with timestamp
-        archiveCucumberReports();
-    }
-
-    private void archiveCucumberReports() {
-        String timestamp = com.hackathonProject.utils.ExtentReportManager.getTimestamp();
-
-        copyFile("reports/cucumber/cucumber-report.html",
-                 "reports/cucumber/cucumber-report_" + timestamp + ".html");
-
-        copyFile("reports/cucumber/cucumber-report.json",
-                 "reports/cucumber/cucumber-report_" + timestamp + ".json");
-    }
-
-    private void copyFile(String source, String destination) {
-        try {
-            File src = new File(source);
-            if (src.exists()) {
-                Files.copy(src.toPath(), Path.of(destination), StandardCopyOption.REPLACE_EXISTING);
-                logger.info("Report archived: " + destination);
-            }
-        } catch (Exception e) {
-            logger.warn("Could not archive report: " + e.getMessage());
-        }
     }
 }
