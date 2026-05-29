@@ -1,11 +1,11 @@
-package com.hackathonProject.utils;
+package com.hackathonproject.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.hackathonProject.pages.SearchResultsPage.CourseInfo;
+import com.hackathonproject.pages.SearchResultsPage.CourseInfo;
 
 import org.apache.poi.ss.usermodel.Row;
 

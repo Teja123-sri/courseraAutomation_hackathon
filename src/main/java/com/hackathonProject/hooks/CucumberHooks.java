@@ -1,4 +1,4 @@
-package com.hackathonProject.hooks;
+package com.hackathonproject.hooks;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -6,9 +6,9 @@ import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.hackathonProject.base.BaseClass;
-import com.hackathonProject.utils.ExtentReportManager;
-import com.hackathonProject.utils.ScreenshotUtil;
+import com.hackathonproject.base.BaseClass;
+import com.hackathonproject.utils.ExtentReportManager;
+import com.hackathonproject.utils.ScreenshotUtil;
 
 public class CucumberHooks {
 
@@ -31,36 +31,50 @@ public class CucumberHooks {
 
     @After
     public void tearDown(Scenario scenario) {
+
         logger.info("====== SCENARIO FINISHED: " + scenario.getName()
                     + " | Status: " + scenario.getStatus() + " ======");
 
-        // If scenario FAILED → capture screenshot and attach to reports
-        if (scenario.isFailed()) {
-            logger.warn("Scenario FAILED — capturing screenshot");
+        if (BaseClass.getDriver() != null) {
 
-            // Capture screenshot as byte array
-            byte[] screenshotBytes = ScreenshotUtil.captureScreenshotAsBytes(BaseClass.getDriver());
+            String safeName = scenario.getName()
+                                  .replaceAll("[^a-zA-Z0-9]", "_")
+                                  .replaceAll("_+", "_");
 
-            // Attach to Cucumber HTML report (appears inline in report)
-            if (screenshotBytes != null) {
-                scenario.attach(screenshotBytes, "image/png", "Failure Screenshot");
+            if (scenario.isFailed()) {
+                logger.warn("Scenario FAILED — capturing screenshot");
+
+                byte[] screenshotBytes = ScreenshotUtil
+                    .captureScreenshotAsBytes(BaseClass.getDriver());
+                if (screenshotBytes != null) {
+                    scenario.attach(screenshotBytes, "image/png", "Failure Screenshot");
+                }
+
+                String screenshotPath = ScreenshotUtil.captureScreenshot(
+                    BaseClass.getDriver(), safeName + "_FAILED"
+                );
+                ExtentReportManager.logFail("Scenario FAILED: " + scenario.getName());
+                ExtentReportManager.attachScreenshot(screenshotPath);
+
+            } else {
+                logger.info("Scenario PASSED — capturing screenshot");
+
+                String screenshotPath = ScreenshotUtil.captureScreenshot(
+                    BaseClass.getDriver(), safeName + "_PASSED"
+                );
+                ExtentReportManager.logPass("Scenario PASSED: " + scenario.getName());
+                ExtentReportManager.attachScreenshot(screenshotPath);
             }
 
-            // Also save to disk (screenshots/ folder)
-            String screenshotPath = ScreenshotUtil.captureScreenshot(
-                BaseClass.getDriver(), scenario.getName()
-            );
-
-            // Log in Extent Report
-            ExtentReportManager.logFail("Scenario FAILED: " + scenario.getName());
-            ExtentReportManager.attachScreenshot(screenshotPath);
-
         } else {
-            // Pass
-            ExtentReportManager.logPass("Scenario PASSED: " + scenario.getName());
+            logger.warn("Driver is null — skipping screenshot for: "
+                        + scenario.getName());
+            if (scenario.isFailed()) {
+                ExtentReportManager.logFail(
+                    "Scenario FAILED (driver never launched): " + scenario.getName());
+            }
         }
 
-        // ALWAYS quit browser and clean up ThreadLocal (even if test failed)
         BaseClass.removeDriver();
         logger.info("Browser closed. Scenario teardown complete.");
     }

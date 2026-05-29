@@ -1,6 +1,6 @@
-package com.hackathonProject.constants;
+package com.hackathonproject.constants;
 
-import com.hackathonProject.utils.ConfigReader;
+import com.hackathonproject.utils.ConfigReader;
 
 public class FrameworkConstants {
 

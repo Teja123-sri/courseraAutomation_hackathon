@@ -1,4 +1,4 @@
-package com.hackathonProject.runners;
+package com.hackathonproject.runners;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
@@ -12,8 +12,8 @@ import org.testng.annotations.DataProvider;
 
    
     glue = {
-        "com.hackathonProject.stepdefinitions",  
-        "com.hackathonProject.hooks"            
+        "com.hackathonproject.stepdefinitions",  
+        "com.hackathonproject.hooks"            
     },
 
    
@@ -34,7 +34,7 @@ import org.testng.annotations.DataProvider;
         "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
 
         // OUR CUSTOM LISTENER — listens to events and logs them
-        "com.hackathonProject.listeners.CucumberListener"
+        "com.hackathonproject.listeners.CucumberListener"
     },
 
     tags="@Smoke",

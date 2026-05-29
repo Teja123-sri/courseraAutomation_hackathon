@@ -1,4 +1,4 @@
-package com.hackathonProject.base;
+package com.hackathonproject.base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +11,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-import com.hackathonProject.utils.ConfigReader;
+import com.hackathonproject.utils.ConfigReader;
 
 import java.time.Duration;
 
@@ -57,7 +57,7 @@ public class BaseClass {
                 logger.info("Chrome running in HEADLESS mode");
             }
 
-            WebDriverManager.chromedriver().setup();
+//            WebDriverManager.chromedriver().setup();
             webDriver = new ChromeDriver(chromeOptions);
             logger.info("Chrome browser launched");
 

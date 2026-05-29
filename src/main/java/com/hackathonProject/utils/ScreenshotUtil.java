@@ -1,4 +1,4 @@
-package com.hackathonProject.utils;
+package com.hackathonproject.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;

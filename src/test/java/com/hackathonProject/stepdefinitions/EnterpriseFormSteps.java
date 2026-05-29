@@ -1,4 +1,4 @@
-package com.hackathonProject.stepdefinitions;
+package com.hackathonproject.stepdefinitions;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 
-import com.hackathonProject.pages.CampusPage;
-import com.hackathonProject.utils.ExtentReportManager;
-import com.hackathonProject.utils.ScreenshotUtil;
+import com.hackathonproject.utils.ExtentReportManager;
+import com.hackathonproject.utils.ScreenshotUtil;
+import com.hackathonproject.pages.CampusPage;
 
 import java.util.List;
 import java.util.Map;
@@ -28,11 +28,11 @@ public class EnterpriseFormSteps {
         campusPage.navigateToForBusiness();
     }
 
-    @When("the user clicks on Contact Sales")
-    public void theUserClicksContactSales() {
+    @When("the user scrolls to the contact form")
+    public void theUserScrollsContactForm() {
         logger.info("STEP: Clicking Contact Sales / scrolling to form");
         ExtentReportManager.logInfo("Clicking Contact Sales button");
-        campusPage.clickContactSales();
+        campusPage.userScrollsContactForm();
     }
 
     @When("the user fills the contact form with the following details:")
@@ -52,7 +52,7 @@ public class EnterpriseFormSteps {
         campusPage.fillFormWithInvalidEmail(firstName, lastName, email);
 
         String screenshotPath = ScreenshotUtil.captureScreenshot(
-            com.hackathonProject.base.BaseClass.getDriver(), "FormFilledWithInvalidEmail"
+            com.hackathonproject.base.BaseClass.getDriver(), "FormFilledWithInvalidEmail"
         );
         ExtentReportManager.attachScreenshot(screenshotPath);
     }
@@ -68,7 +68,7 @@ public class EnterpriseFormSteps {
         ExtentReportManager.logInfo("Error message captured: " + capturedErrorMessage);
 
         String screenshotPath = ScreenshotUtil.captureScreenshot(
-            com.hackathonProject.base.BaseClass.getDriver(), "EmailValidationError"
+            com.hackathonproject.base.BaseClass.getDriver(), "EmailValidationError"
         );
         ExtentReportManager.attachScreenshot(screenshotPath);
 

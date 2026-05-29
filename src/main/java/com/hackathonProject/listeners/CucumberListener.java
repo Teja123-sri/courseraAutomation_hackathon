@@ -1,4 +1,4 @@
-package com.hackathonProject.listeners;
+package com.hackathonproject.listeners;
 
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
@@ -71,7 +71,7 @@ public class CucumberListener implements ConcurrentEventListener {
 
         // Flush Extent Reports
         try {
-            com.hackathonProject.utils.ExtentReportManager.flushReports();
+            com.hackathonproject.utils.ExtentReportManager.flushReports();
             logger.info("Extent Reports flushed successfully");
         } catch (Exception e) {
             logger.error("Could not flush Extent Reports: " + e.getMessage());

@@ -1,6 +1,6 @@
-package com.hackathonProject.pages;
+package com.hackathonproject.pages;
 
-import com.hackathonProject.base.BaseClass;
+import com.hackathonproject.base.BaseClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,8 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import com.hackathonProject.utils.JavaScriptUtil;
-import com.hackathonProject.utils.WaitUtil;
+import com.hackathonproject.utils.JavaScriptUtil;
+import com.hackathonproject.utils.WaitUtil;
 
 public class CampusPage {
 
@@ -46,7 +46,7 @@ public class CampusPage {
         dismissPopup();
     }
 
-    public void clickContactSales() {
+    public void userScrollsContactForm() {
         logger.info("Scrolling to form section");
         JavaScriptUtil.scrollByPixels(driver, 2000);
         WaitUtil.waitForElementVisible(driver, firstNameField);

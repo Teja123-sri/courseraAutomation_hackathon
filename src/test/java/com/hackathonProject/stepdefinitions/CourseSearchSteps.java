@@ -1,15 +1,15 @@
-package com.hackathonProject.stepdefinitions;
+package com.hackathonproject.stepdefinitions;
 
 import io.cucumber.java.en.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 
-import com.hackathonProject.constants.FrameworkConstants;
-import com.hackathonProject.pages.HomePage;
-import com.hackathonProject.pages.SearchResultsPage;
-import com.hackathonProject.pages.SearchResultsPage.CourseInfo;
-import com.hackathonProject.utils.ExtentReportManager;
+import com.hackathonproject.constants.FrameworkConstants;
+import com.hackathonproject.utils.ExtentReportManager;
+import com.hackathonproject.pages.HomePage;
+import com.hackathonproject.pages.SearchResultsPage;
+import com.hackathonproject.pages.SearchResultsPage.CourseInfo;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class CourseSearchSteps {
     @Then("the search results page should be displayed")
     public void theSearchResultsPageShouldBeDisplayed() {
         logger.info("STEP: Verifying search results page");
-        String url = com.hackathonProject.base.BaseClass.getDriver().getCurrentUrl();
+        String url = com.hackathonproject.base.BaseClass.getDriver().getCurrentUrl();
         
         // PASS: URL contains "search" or "coursera" — browser is on the results page
         // FAIL: URL does not match — may have stayed on home page or been redirected
